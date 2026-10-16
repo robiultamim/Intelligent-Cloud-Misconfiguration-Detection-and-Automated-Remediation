@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: metrics-5422
+  namespace: dev
+spec:
+  containers:
+  - image: ubuntu
+    name: metrics-5422
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: true
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

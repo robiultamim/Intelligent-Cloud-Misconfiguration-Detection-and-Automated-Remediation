@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-8758
+    environment: dev
+  name: gateway-8758
+  namespace: production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: gateway-8758
+  template:
+    metadata:
+      labels:
+        app: gateway-8758
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: gateway-8758
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

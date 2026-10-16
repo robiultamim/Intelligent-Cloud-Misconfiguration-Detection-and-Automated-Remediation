@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketprocessor3703": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-processor-3703",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

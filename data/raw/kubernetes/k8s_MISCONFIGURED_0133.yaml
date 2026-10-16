@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-2070
+  namespace: kube-system
+spec:
+  containers:
+  - image: myapp:latest
+    name: backend-2070
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes: []

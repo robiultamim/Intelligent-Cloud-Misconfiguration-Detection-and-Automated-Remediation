@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-3060
+    environment: dev
+  name: gateway-3060
+  namespace: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gateway-3060
+  template:
+    metadata:
+      labels:
+        app: gateway-3060
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: gateway-3060
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

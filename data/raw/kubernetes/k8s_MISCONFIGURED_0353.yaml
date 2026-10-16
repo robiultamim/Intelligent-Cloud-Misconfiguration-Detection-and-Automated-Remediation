@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-5890
+    environment: dev
+  name: auth-5890
+  namespace: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: auth-5890
+  template:
+    metadata:
+      labels:
+        app: auth-5890
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: auth-5890
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

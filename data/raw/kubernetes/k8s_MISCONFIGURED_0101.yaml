@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-5681
+  namespace: production
+spec:
+  containers:
+  - image: python
+    name: backend-5681
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes: []

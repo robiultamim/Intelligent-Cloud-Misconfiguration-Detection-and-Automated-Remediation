@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metrics-9238
+    environment: dev
+  name: metrics-9238
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: metrics-9238
+  template:
+    metadata:
+      labels:
+        app: metrics-9238
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: ubuntu
+        name: metrics-9238
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

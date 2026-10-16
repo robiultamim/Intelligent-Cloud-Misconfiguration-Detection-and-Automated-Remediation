@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketcache9946": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-cache-9946",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

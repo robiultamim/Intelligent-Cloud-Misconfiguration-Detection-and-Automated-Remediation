@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth-7236
+  namespace: kube-system
+spec:
+  containers:
+  - image: python
+    name: auth-7236
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: true
+  volumes: []

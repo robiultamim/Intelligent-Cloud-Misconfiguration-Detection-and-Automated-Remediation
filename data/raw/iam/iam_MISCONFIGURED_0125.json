@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketfrontend1618": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-frontend-1618",
+        "AccessControl": "PublicRead"
+      }
+    }
+  }
+}

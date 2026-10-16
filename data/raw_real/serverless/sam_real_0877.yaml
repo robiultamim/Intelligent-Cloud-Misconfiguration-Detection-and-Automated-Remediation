@@ -1,0 +1,14 @@
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+
+Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      DefinitionUri: ${definitionuri}
+      MethodSettings: [{LoggingLevel: INFO, MetricsEnabled: true, DataTraceEnabled: true,
+          ResourcePath: /*, HttpMethod: '*'}]
+Metadata:
+  SamTransformTest: true

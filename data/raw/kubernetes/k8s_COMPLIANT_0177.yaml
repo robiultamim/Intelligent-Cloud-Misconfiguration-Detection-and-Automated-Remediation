@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend-8110
+    environment: production
+  name: backend-8110
+  namespace: production
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-8110
+  template:
+    metadata:
+      labels:
+        app: backend-8110
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: python:3.11-slim
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: backend-8110
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 2646
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-backend-8110

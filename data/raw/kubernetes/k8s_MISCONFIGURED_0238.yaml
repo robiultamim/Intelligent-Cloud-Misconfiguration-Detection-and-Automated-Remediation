@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: worker-7229
+    environment: dev
+  name: worker-7229
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker-7229
+  template:
+    metadata:
+      labels:
+        app: worker-7229
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: worker-7229
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

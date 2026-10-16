@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend-9972
+    environment: production
+  name: frontend-9972
+  namespace: monitoring
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: frontend-9972
+  template:
+    metadata:
+      labels:
+        app: frontend-9972
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: node:20-alpine@sha256:abc123
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: frontend-9972
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 4312
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-frontend-9972

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-3661
+    environment: dev
+  name: auth-3661
+  namespace: monitoring
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-3661
+  template:
+    metadata:
+      labels:
+        app: auth-3661
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: auth-3661
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

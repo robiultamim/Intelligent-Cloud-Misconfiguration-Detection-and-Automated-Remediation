@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metrics-4803
+    environment: dev
+  name: metrics-4803
+  namespace: default
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: metrics-4803
+  template:
+    metadata:
+      labels:
+        app: metrics-4803
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: metrics-4803
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

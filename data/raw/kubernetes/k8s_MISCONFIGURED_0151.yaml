@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-6153
+  namespace: staging
+spec:
+  containers:
+  - image: python
+    name: backend-6153
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: true
+  volumes: []

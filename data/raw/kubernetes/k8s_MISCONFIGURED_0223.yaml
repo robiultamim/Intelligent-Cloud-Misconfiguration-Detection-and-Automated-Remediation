@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-2494
+  namespace: default
+spec:
+  containers:
+  - image: nginx:latest
+    name: backend-2494
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes: []

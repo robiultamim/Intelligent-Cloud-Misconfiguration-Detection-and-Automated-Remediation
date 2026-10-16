@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+pipeline.log
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Secret / Local Environment Variables
+.env
+!.env.example
+
+# Temporary Staging Repositories (large cloned third-party repos)
+data/staging_repos/
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

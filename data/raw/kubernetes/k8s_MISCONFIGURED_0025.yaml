@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-2743
+    environment: dev
+  name: gateway-2743
+  namespace: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gateway-2743
+  template:
+    metadata:
+      labels:
+        app: gateway-2743
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: gateway-2743
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

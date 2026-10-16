@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: logging-9951
+    environment: dev
+  name: logging-9951
+  namespace: production
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: logging-9951
+  template:
+    metadata:
+      labels:
+        app: logging-9951
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: logging-9951
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - ALL
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

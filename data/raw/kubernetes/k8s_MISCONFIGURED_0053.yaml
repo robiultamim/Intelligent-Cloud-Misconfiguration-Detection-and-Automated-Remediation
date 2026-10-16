@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth-5616
+    environment: dev
+  name: auth-5616
+  namespace: monitoring
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: auth-5616
+  template:
+    metadata:
+      labels:
+        app: auth-5616
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: auth-5616
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

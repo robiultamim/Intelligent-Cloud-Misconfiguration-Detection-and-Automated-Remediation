@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth-2887
+  namespace: kube-system
+spec:
+  containers:
+  - image: nginx:latest
+    name: auth-2887
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: true
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

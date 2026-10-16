@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: processor-8517
+  namespace: production
+spec:
+  containers:
+  - image: python
+    name: processor-8517
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes: []

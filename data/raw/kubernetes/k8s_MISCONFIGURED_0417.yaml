@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: backend-8692
+  namespace: staging
+spec:
+  containers:
+  - image: ubuntu
+    name: backend-8692
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: false
+  volumes: []

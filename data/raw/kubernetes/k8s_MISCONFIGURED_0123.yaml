@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth-6576
+  namespace: staging
+spec:
+  containers:
+  - image: python
+    name: auth-6576
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: false
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

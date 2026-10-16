@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketmetrics8715": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-metrics-8715",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

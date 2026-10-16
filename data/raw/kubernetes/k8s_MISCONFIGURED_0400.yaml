@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-1056
+    environment: dev
+  name: api-1056
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-1056
+  template:
+    metadata:
+      labels:
+        app: api-1056
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: ubuntu
+        name: api-1056
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

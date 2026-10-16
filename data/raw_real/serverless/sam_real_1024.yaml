@@ -1,0 +1,12 @@
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+
+Resources:
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: MyNewStageName
+      DefinitionUri: ${definitionuri}
+Metadata:
+  SamTransformTest: true

@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketlogging8619": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-logging-8619",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

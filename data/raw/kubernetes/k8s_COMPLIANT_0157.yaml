@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-2858
+    environment: production
+  name: api-2858
+  namespace: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-2858
+  template:
+    metadata:
+      labels:
+        app: api-2858
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: node:20-alpine@sha256:abc123
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: api-2858
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 2924
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-api-2858

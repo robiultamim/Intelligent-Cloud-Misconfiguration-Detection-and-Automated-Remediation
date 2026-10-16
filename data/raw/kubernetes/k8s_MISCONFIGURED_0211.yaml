@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend-6464
+    environment: dev
+  name: frontend-6464
+  namespace: production
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: frontend-6464
+  template:
+    metadata:
+      labels:
+        app: frontend-6464
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: ubuntu
+        name: frontend-6464
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

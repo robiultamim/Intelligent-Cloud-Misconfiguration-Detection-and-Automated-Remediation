@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: frontend-9700
+    environment: production
+  name: frontend-9700
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-9700
+  template:
+    metadata:
+      labels:
+        app: frontend-9700
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: nginx:1.25.3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: frontend-9700
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 4814
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-frontend-9700

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cache-6231
+    environment: dev
+  name: cache-6231
+  namespace: dev
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cache-6231
+  template:
+    metadata:
+      labels:
+        app: cache-6231
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: cache-6231
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

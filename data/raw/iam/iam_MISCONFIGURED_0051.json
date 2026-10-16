@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketgateway6343": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-gateway-6343",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

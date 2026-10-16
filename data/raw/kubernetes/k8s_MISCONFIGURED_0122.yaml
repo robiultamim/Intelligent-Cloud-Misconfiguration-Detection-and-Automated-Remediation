@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: logging-7209
+    environment: dev
+  name: logging-7209
+  namespace: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: logging-7209
+  template:
+    metadata:
+      labels:
+        app: logging-7209
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: logging-7209
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metrics-6241
+    environment: dev
+  name: metrics-6241
+  namespace: staging
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: metrics-6241
+  template:
+    metadata:
+      labels:
+        app: metrics-6241
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: metrics-6241
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-1752
+    environment: dev
+  name: gateway-1752
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-1752
+  template:
+    metadata:
+      labels:
+        app: gateway-1752
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: gateway-1752
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

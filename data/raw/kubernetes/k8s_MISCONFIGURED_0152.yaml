@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: processor-9889
+    environment: dev
+  name: processor-9889
+  namespace: kube-system
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: processor-9889
+  template:
+    metadata:
+      labels:
+        app: processor-9889
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: processor-9889
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - ALL
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

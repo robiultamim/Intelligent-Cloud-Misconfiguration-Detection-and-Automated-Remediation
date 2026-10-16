@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-5375
+    environment: dev
+  name: api-5375
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-5375
+  template:
+    metadata:
+      labels:
+        app: api-5375
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: api-5375
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

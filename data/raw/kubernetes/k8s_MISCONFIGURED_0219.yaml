@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cache-3430
+    environment: dev
+  name: cache-3430
+  namespace: default
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: cache-3430
+  template:
+    metadata:
+      labels:
+        app: cache-3430
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: cache-3430
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - SYS_ADMIN
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default

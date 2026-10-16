@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: logging-2695
+    environment: dev
+  name: logging-2695
+  namespace: staging
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: logging-2695
+  template:
+    metadata:
+      labels:
+        app: logging-2695
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: ubuntu
+        name: logging-2695
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

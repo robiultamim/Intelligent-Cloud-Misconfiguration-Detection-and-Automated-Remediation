@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scheduler-4705
+  namespace: kube-system
+spec:
+  containers:
+  - image: nginx:latest
+    name: scheduler-4705
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

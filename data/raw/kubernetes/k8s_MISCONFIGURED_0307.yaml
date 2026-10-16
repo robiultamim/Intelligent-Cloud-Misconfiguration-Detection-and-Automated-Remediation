@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend-6776
+  namespace: monitoring
+spec:
+  containers:
+  - image: myapp:latest
+    name: frontend-6776
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: true
+  volumes: []

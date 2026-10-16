@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gateway-8633
+  namespace: kube-system
+spec:
+  containers:
+  - image: nginx:latest
+    name: gateway-8633
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: true
+  volumes: []

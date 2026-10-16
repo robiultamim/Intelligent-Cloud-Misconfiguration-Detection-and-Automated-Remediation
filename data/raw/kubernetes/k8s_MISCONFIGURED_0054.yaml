@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: auth-1832
+  namespace: default
+spec:
+  containers:
+  - image: myapp:latest
+    name: auth-1832
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: false
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

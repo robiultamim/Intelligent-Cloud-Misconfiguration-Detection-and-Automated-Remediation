@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gateway-1982
+    environment: dev
+  name: gateway-1982
+  namespace: monitoring
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: gateway-1982
+  template:
+    metadata:
+      labels:
+        app: gateway-1982
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: python
+        name: gateway-1982
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

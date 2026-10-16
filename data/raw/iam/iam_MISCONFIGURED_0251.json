@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketbackend7322": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-backend-7322",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

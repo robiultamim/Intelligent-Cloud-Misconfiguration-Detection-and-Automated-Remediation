@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-7275
+    environment: dev
+  name: api-7275
+  namespace: dev
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: api-7275
+  template:
+    metadata:
+      labels:
+        app: api-7275
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: api-7275
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

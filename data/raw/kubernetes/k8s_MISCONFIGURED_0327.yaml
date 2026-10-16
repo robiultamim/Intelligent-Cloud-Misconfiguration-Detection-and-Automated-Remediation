@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: processor-5949
+  namespace: kube-system
+spec:
+  containers:
+  - image: ubuntu
+    name: processor-5949
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

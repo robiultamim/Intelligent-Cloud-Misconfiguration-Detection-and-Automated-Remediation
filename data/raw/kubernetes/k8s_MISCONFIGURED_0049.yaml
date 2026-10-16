@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logging-6180
+  namespace: default
+spec:
+  containers:
+  - image: nginx:latest
+    name: logging-6180
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: true
+  volumes: []

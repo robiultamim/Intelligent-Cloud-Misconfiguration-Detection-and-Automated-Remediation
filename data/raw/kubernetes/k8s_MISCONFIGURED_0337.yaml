@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: metrics-9261
+    environment: dev
+  name: metrics-9261
+  namespace: kube-system
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: metrics-9261
+  template:
+    metadata:
+      labels:
+        app: metrics-9261
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: metrics-9261
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

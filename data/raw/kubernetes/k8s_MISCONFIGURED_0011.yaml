@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cache-4432
+  namespace: dev
+spec:
+  containers:
+  - image: python
+    name: cache-4432
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: false
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

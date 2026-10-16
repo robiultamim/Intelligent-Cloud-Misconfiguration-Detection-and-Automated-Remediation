@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: processor-9907
+    environment: production
+  name: processor-9907
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: processor-9907
+  template:
+    metadata:
+      labels:
+        app: processor-9907
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: node:20-alpine@sha256:abc123
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: processor-9907
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 7266
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-processor-9907

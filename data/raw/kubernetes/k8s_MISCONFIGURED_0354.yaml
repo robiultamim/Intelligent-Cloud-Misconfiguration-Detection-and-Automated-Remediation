@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gateway-5480
+  namespace: staging
+spec:
+  containers:
+  - image: nginx:latest
+    name: gateway-5480
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: false
+  hostPID: true
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

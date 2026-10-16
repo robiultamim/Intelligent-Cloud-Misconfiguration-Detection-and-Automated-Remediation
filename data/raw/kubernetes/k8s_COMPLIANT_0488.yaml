@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: scheduler-7286
+    environment: production
+  name: scheduler-7286
+  namespace: staging
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: scheduler-7286
+  template:
+    metadata:
+      labels:
+        app: scheduler-7286
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - image: python:3.11-slim
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+        name: scheduler-7286
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 4043
+          seccompProfile:
+            type: RuntimeDefault
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: sa-scheduler-7286

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logging-2729
+  namespace: kube-system
+spec:
+  containers:
+  - image: python
+    name: logging-2729
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: true
+      privileged: true
+      runAsUser: 0
+  hostNetwork: true
+  hostPID: true
+  volumes:
+  - hostPath:
+      path: /
+      type: Directory
+    name: host-vol

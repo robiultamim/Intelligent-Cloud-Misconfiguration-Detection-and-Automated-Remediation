@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: scheduler-9313
+    environment: dev
+  name: scheduler-9313
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scheduler-9313
+  template:
+    metadata:
+      labels:
+        app: scheduler-9313
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: scheduler-9313
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

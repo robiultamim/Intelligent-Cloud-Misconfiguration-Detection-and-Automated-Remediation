@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: processor-5336
+    environment: dev
+  name: processor-5336
+  namespace: dev
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: processor-5336
+  template:
+    metadata:
+      labels:
+        app: processor-5336
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: processor-5336
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: true
+      serviceAccountName: default

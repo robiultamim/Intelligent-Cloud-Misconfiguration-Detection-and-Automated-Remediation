@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketscheduler5067": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-scheduler-5067",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

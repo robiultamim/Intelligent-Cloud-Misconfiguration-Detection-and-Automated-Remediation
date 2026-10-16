@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketworker7783": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-worker-7783",
+        "AccessControl": "PublicReadWrite"
+      }
+    }
+  }
+}

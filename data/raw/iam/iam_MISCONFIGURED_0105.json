@@ -1,0 +1,12 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "bucketmetrics1578": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "bucket-metrics-1578",
+        "AccessControl": "PublicRead"
+      }
+    }
+  }
+}

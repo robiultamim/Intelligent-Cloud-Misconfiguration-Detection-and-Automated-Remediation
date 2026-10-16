@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Fnscheduler1618:
+    Properties:
+      Environment:
+        Variables:
+          DB_PASSWORD: admin123
+          SECRET_KEY: hardcoded
+      Events:
+        ApiEvent:
+          Properties:
+            Method: GET
+            Path: /data
+          Type: Api
+      FunctionName: fn-scheduler1618
+      Handler: index.handler
+      Role: arn:aws:iam::*:role/AdministratorAccess
+      Runtime: python3.11
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

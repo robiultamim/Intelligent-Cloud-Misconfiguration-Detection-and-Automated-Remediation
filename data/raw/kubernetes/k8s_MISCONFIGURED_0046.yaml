@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: processor-4853
+    environment: dev
+  name: processor-4853
+  namespace: kube-system
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: processor-4853
+  template:
+    metadata:
+      labels:
+        app: processor-4853
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: nginx:latest
+        name: processor-4853
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: true
+      serviceAccountName: default

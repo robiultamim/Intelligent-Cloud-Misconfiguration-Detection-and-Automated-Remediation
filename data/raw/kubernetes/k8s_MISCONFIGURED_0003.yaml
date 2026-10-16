@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-9279
+    environment: dev
+  name: api-9279
+  namespace: monitoring
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: api-9279
+  template:
+    metadata:
+      labels:
+        app: api-9279
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: ubuntu
+        name: api-9279
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: true
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: true
+      hostPID: false
+      serviceAccountName: default

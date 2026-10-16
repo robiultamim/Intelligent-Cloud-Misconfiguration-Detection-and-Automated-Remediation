@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  Fnlogging7618:
+    Properties:
+      DeadLetterQueue:
+        TargetArn:
+          Fn::GetAtt:
+          - DLQ
+          - Arn
+        Type: SQS
+      Environment:
+        Variables:
+          LOG_LEVEL: INFO
+          REGION: us-east-1
+      Events:
+        ApiEvent:
+          Properties:
+            Auth:
+              Authorizer: CognitoAuthorizer
+            Method: GET
+            Path: /data
+          Type: Api
+      FunctionName: fn-logging7618
+      Handler: index.handler
+      Role:
+        Fn::GetAtt:
+        - Rolelogging7618
+        - Arn
+      Runtime: python3.11
+      VpcConfig:
+        SecurityGroupIds:
+        - sg-12345
+        SubnetIds:
+        - subnet-abc
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

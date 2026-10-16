@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: processor-2336
+    environment: dev
+  name: processor-2336
+  namespace: staging
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: processor-2336
+  template:
+    metadata:
+      labels:
+        app: processor-2336
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - image: myapp:latest
+        name: processor-2336
+        resources: {}
+        securityContext:
+          allowPrivilegeEscalation: true
+          capabilities:
+            add:
+            - NET_ADMIN
+            - SYS_PTRACE
+          privileged: null
+          readOnlyRootFilesystem: false
+          runAsNonRoot: false
+      hostNetwork: false
+      hostPID: false
+      serviceAccountName: default
